@@ -1,0 +1,7 @@
+TOKEN => sqp_9988f67cfef482e2f19bd84bc11952234d8e3566
+
+mvn clean verify sonar:sonar \ -Dsonar.projectKey=user_project \ -Dsonar.projectName='user_project' \ -Dsonar.host.url=http://localhost:9000 \ -Dsonar.token=sqp_9988f67cfef482e2f19bd84bc11952234d8e3566
+
+mvn clean verify sonar:sonar -Dsonar.token=sqp_9988f67cfef482e2f19bd84bc11952234d8e3566
+
+mvn clean verify sonar:sonar \ -Dsonar.token=sqp_9988f67cfef482e2f19bd84bc11952234d8e3566

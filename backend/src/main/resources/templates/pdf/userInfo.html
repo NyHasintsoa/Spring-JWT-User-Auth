@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+</head>
+<body>
+    <img src="http://localhost:8003/images/logo.png" alt="logo">
+    <h1 th:text="'Bonjour '+${username}" style="color: red;"></h1>
+    <p th:text="${email}"></p>
+
+    <p>this is the link to reset password</p>
+</body>
+</html>
