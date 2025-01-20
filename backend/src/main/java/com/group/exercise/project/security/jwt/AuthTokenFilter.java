@@ -52,7 +52,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             }
         } catch (JwtException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write(e.getMessage() + " : Invalid or expired token, you ma login and try again");
+            response.getWriter().write(e.getMessage() + " : Invalid or expired token, you may login and try again");
             return;
         } catch (UsernameNotFoundException e) {
             e.printStackTrace();

@@ -20,6 +20,7 @@ import com.group.exercise.project.entity.User;
 import com.group.exercise.project.repository.UserRepository;
 import com.group.exercise.project.security.jwt.JwtUtils;
 import com.group.exercise.project.security.request.UpdatePasswordRequest;
+import com.group.exercise.project.security.service.invalidToken.IInvalidTokenService;
 
 import jakarta.mail.internet.MimeMessage;
 
@@ -31,9 +32,6 @@ public class ForgotPasswordService implements IForgotPasswordService {
 
     @Value("${project.name.from}")
     private String NAME_FROM;
-
-    @Value("${server.port}")
-    private Integer HOST_PORT;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -49,6 +47,9 @@ public class ForgotPasswordService implements IForgotPasswordService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private IInvalidTokenService invalidTokenService;
 
     @Override
     public void sendMailReset(String email) {
@@ -66,11 +67,10 @@ public class ForgotPasswordService implements IForgotPasswordService {
             mimeHelper.setSubject("Reset Password Mail");
             mimeHelper.setFrom(MAIL_FROM, NAME_FROM);
             Map<String, Object> model = new HashMap<>();
-            model.put("hostPort", HOST_PORT);
             model.put("token", token);
             model.put("email", user.getEmail());
             model.put("username", user.getUsername());
-            String htmlBody = templateEngine.process("mailing/forgotPasswordMail", new Context(Locale.FRENCH, model));
+            String htmlBody = templateEngine.process("mailing/forgotPassword", new Context(Locale.FRENCH, model));
             mimeHelper.setText(htmlBody, true);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
@@ -79,13 +79,21 @@ public class ForgotPasswordService implements IForgotPasswordService {
     }
 
     @Override
+    public Boolean checkIfTokenValid(String token) {
+        if (jwtUtils.validateToken(token) && !invalidTokenService.checkIfTokenExist(token))
+            return true;
+        return false;
+    }
+
+    @Override
     public void updatePasswordByToken(UpdatePasswordRequest request) {
         try {
-            if (jwtUtils.validateToken(request.getToken())) {
+            if (checkIfTokenValid(request.getToken())) {
                 User user = userRepository.findByEmail(jwtUtils.getEmailFromToken(request.getToken()));
                 user.setPassword(passwordEncoder.encode(request.getPassword()));
                 user.setUpdatedAt(new Date());
                 userRepository.save(user);
+                invalidTokenService.makeTokenInvalid(request.getToken());
             }
         } catch (Exception e) {
             System.out.println("#########################################");

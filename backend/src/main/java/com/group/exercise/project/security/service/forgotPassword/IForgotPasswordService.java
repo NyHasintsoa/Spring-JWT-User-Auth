@@ -8,4 +8,6 @@ public interface IForgotPasswordService {
 
     void updatePasswordByToken(UpdatePasswordRequest request);
 
+    Boolean checkIfTokenValid(String token);
+
 }

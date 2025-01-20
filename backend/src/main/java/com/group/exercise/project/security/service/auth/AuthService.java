@@ -1,5 +1,8 @@
 package com.group.exercise.project.security.service.auth;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,7 +58,9 @@ public class AuthService implements IAuthService {
         newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         newUser.setUsername(request.getUsername());
         newUser.setFullname(request.getFullname());
-        newUser.setRole(Roles.ROLE_USER);
+        Set<Roles> roles = new HashSet<>();
+        roles.add(Roles.ROLE_USER);
+        newUser.setRoles(roles);
         newUser.setAccountNonLocked(true);
         newUser.setEnabled(true);
         userRepository.save(newUser);

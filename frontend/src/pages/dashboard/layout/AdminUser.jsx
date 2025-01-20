@@ -1,13 +1,9 @@
-import React from "react";
 import { Dropdown, Navbar } from "react-bootstrap";
 import { FaCogs, FaList, FaSignOutAlt, FaUser } from "react-icons/fa";
-import { useAuth } from "../../../context/AuthContext.jsx";
 import {Link} from "react-router-dom";
 
 const AdminUser = () => {
-  const { logout } = useAuth();
   const handleLogout = () => {
-    logout();
   };
 
   return (

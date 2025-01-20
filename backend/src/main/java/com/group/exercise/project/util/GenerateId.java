@@ -6,6 +6,12 @@ import java.util.UUID;
 
 public class GenerateId {
 
+    /**
+     * Generate a id by an input string
+     * @param input Input String to generate the key
+     * @param length Length of the id generated
+     * @return Return the string to be generated
+     */
     public static String generateConstanteLengthId(String input, Integer length) {
         // Créer un hashage SHA-256
         MessageDigest digest;

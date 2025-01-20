@@ -1,6 +1,7 @@
 package com.group.exercise.project.dto;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.group.exercise.project.enums.Roles;
 
@@ -21,9 +22,11 @@ public class UserDto {
 
     private String username;
 
-    private Roles role;
+    private Set<Roles> roles;
 
     private String fullname;
+
+    private String profileImage;
 
     private Boolean enabled;
 

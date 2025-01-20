@@ -1,10 +1,23 @@
+import { useState } from "react";
 import Header from "../../components/header/Header.jsx";
 
 const About = () => {
+
+  const [number, setNumber] = useState(0)
+
+  const handleClick = (event) => {
+    event.preventDefault()
+    setNumber(n => n + 1)
+  }
+
   return (
     <>
       <Header/>
-      <h1>About</h1>
+      <div className="m-5">
+        <button onClick={handleClick} className="btn btn-lg btn-outline-primary">
+          Increment Number : {number}
+        </button>
+      </div>
     </>
   )
 }

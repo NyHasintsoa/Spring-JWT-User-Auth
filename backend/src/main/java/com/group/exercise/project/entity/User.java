@@ -1,15 +1,18 @@
 package com.group.exercise.project.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.hibernate.annotations.NaturalId;
 
 import com.group.exercise.project.enums.Roles;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -36,10 +39,14 @@ public class User {
     private String password;
 
     @Enumerated(value = EnumType.STRING)
-    private Roles role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Roles> roles;
 
     @Column(name = "full_name", nullable = true, length = 255)
     private String fullname;
+
+    @Column(name = "profile_image", nullable = true)
+    private String profileImage;
 
     @Column(name = "created_at")
     private Date createdAt = new Date();

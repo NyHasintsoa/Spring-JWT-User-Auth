@@ -2,8 +2,11 @@ package com.group.exercise.project.service.user;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.group.exercise.project.dto.UserDto;
 import com.group.exercise.project.entity.User;
+import com.group.exercise.project.request.AddUserRequest;
 import com.group.exercise.project.security.user.AuthUserDetails;
 
 public interface IUserService {
@@ -11,6 +14,10 @@ public interface IUserService {
     User getUserByEmail(String email);
 
     User getUserById(String id);
+
+    User addUser(AddUserRequest request);
+
+    User uploadProfileImage(String userId, MultipartFile imageFile);
 
     List<User> getAllUsers();
 

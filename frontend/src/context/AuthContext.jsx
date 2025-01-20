@@ -1,11 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginRequest } from "../service/AuthService.js";
 import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext);
+// export const useAuth = () => useContext(AuthContext);
 
 // eslint-disable-next-line react/prop-types
 const AuthContextProvider = ({ children }) => {

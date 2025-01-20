@@ -16,12 +16,12 @@
   },
   {
     "name": "jwt.token.expiration",
-    "type": "java.lang.Integer",
+    "type": "java.lang.Long",
     "description": "A description for 'jwt.token.expiration'"
   },
   {
     "name": "jwt.refresh.token.expiration",
-    "type": "java.lang.Integer",
+    "type": "java.lang.Long",
     "description": "A description for 'jwt.refresh.token.expiration'"
   },
   {
@@ -53,5 +53,10 @@
     "name": "entity.id.max.length",
     "type": "java.lang.Integer",
     "description": "A description for 'entity.id.max.length'"
+  },
+  {
+    "name": "profile.image.upload.path",
+    "type": "java.lang.String",
+    "description": "A description for 'profile.image.upload.path'"
   }
 ]}

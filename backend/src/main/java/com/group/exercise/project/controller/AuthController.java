@@ -13,6 +13,8 @@ import com.group.exercise.project.security.request.LoginRequest;
 import com.group.exercise.project.security.request.RegisterRequest;
 import com.group.exercise.project.security.service.auth.IAuthService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("${api.prefix}/auth")
 public class AuthController {
@@ -21,7 +23,7 @@ public class AuthController {
     private IAuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse> signUp(@RequestBody RegisterRequest request) {
+    public ResponseEntity<ApiResponse> signUp(@RequestBody @Valid RegisterRequest request) {
         try {
             return ResponseEntity.ok(
                     new ApiResponse("Sign up Request", authService.signUp(request)));
@@ -31,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> signIn(@RequestBody LoginRequest request) {
+    public ResponseEntity<ApiResponse> signIn(@RequestBody @Valid LoginRequest request) {
         try {
             return ResponseEntity.ok(
                     new ApiResponse("Sign in Request", authService.signIn(request)));

@@ -1,10 +1,10 @@
 package com.group.exercise.project.security.user;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.group.exercise.project.entity.User;
@@ -25,25 +25,34 @@ public class AuthUserDetails implements UserDetails {
 
     private String password;
 
-    private Roles role;
+    private String profileImage;
+
+    private Set<Roles> roles;
 
     private Boolean enabled;
 
     private Boolean accountNonLocked;
+
+    private Date createdAt;
+
+    private Date updatedAt;
 
     public static AuthUserDetails buildDetails(User user) {
         return new AuthUserDetails(
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getRole(),
+                user.getProfileImage(),
+                user.getRoles(),
                 user.getEnabled(),
-                user.getAccountNonLocked());
+                user.getAccountNonLocked(),
+                user.getCreatedAt(),
+                user.getUpdatedAt());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return roles;
     }
 
     @Override
