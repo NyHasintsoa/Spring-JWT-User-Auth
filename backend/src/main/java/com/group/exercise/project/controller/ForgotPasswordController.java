@@ -65,11 +65,11 @@ public class ForgotPasswordController {
             );
         } catch (Exception e) {
             return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(HttpStatus.OK)
                 .body(
                     new ApiResponse(
-                        "INTERNAL_SERVER_ERROR",
-                        e.getMessage()
+                        "Check If Token Valid",
+                        false
                     )
                 );
         }

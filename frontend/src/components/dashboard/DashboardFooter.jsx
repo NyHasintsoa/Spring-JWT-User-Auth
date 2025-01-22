@@ -1,6 +1,4 @@
-import React from "react";
-
-const AdminFooter = () => {
+const DashboardFooter = () => {
   return (
     <>
       <footer className="py-4 bg-light mt-auto">
@@ -19,4 +17,4 @@ const AdminFooter = () => {
   );
 };
 
-export default AdminFooter;
+export default DashboardFooter;

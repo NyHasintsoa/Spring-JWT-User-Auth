@@ -1,10 +1,9 @@
 import { Dropdown, Navbar } from "react-bootstrap";
 import { FaCogs, FaList, FaSignOutAlt, FaUser } from "react-icons/fa";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const AdminUser = () => {
-  const handleLogout = () => {
-  };
+const UserDropDown = () => {
+  const handleLogout = () => {};
 
   return (
     <>
@@ -44,4 +43,4 @@ const AdminUser = () => {
   );
 };
 
-export default AdminUser;
+export default UserDropDown;

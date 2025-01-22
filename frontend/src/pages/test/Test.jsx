@@ -51,7 +51,7 @@ const Test = () => {
   }
 
   const successBtn = async () => {
-    await toast.promise(fetchData("/api/test/show-test?error=errors"),{
+    await toast.promise(fetchData("/api/test/show-test?error=2"),{
       loading: "Veuillez patienter",
       success: (data) => {
         console.log(data)

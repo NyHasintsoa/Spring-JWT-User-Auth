@@ -2,15 +2,13 @@ import { Card, CardBody, Container } from "react-bootstrap";
 import SpringLogo from "../../assets/image/spring-logo.png";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import {loginAxios} from "../../service/AuthService.js";
 
 const Login = () => {
   const { register, handleSubmit, formState } = useForm();
 
   const onSubmit = async (data) => {
     try{
-      const response = await loginAxios(data);
-      console.log(response.data.data.token);
+      console.log(data);
     } catch(error) {
       console.log(error)
     }

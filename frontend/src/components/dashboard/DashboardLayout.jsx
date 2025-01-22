@@ -1,9 +1,9 @@
 import { Component } from "react";
-import AdminSidebar from "./AdminSidebar";
 import { Outlet } from "react-router-dom";
-import AdminUser from "./AdminUser";
 import { FaBars, FaSearch } from "react-icons/fa";
-import "../../../assets/css/sidebar.css";
+import UserDropDown from "./UserDropDown.jsx";
+import DashboardSidebar from "./DashboardSidebar.jsx";
+import "../../assets/css/sidebar.css";
 
 class DashboardLayout extends Component {
   constructor(props) {
@@ -57,10 +57,10 @@ class DashboardLayout extends Component {
                 </button>
               </div>
             </form>
-            <AdminUser />
+            <UserDropDown />
           </nav>
           <div id="layoutSidenav">
-            <AdminSidebar />
+            <DashboardSidebar />
             <div id="layoutSidenav_content">
               <main className="mt-5 pt-1">
                 <div className="container-fluid px-4">

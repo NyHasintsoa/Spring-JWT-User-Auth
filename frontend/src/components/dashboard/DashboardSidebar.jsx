@@ -7,7 +7,7 @@ import {
   FaTachometerAlt
 } from "react-icons/fa";
 
-const AdminSidebar = () => {
+const DashboardSidebar = () => {
   return (
     <>
       <div id="layoutSidenav_nav">
@@ -196,4 +196,4 @@ const AdminSidebar = () => {
   );
 };
 
-export default AdminSidebar;
+export default DashboardSidebar;

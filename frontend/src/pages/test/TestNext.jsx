@@ -1,12 +1,12 @@
-import Header from "../../components/header/Header.jsx";
+import Header from "../../components/Header.jsx";
 
 const TestNext = () => {
   return (
     <>
-      <Header/>
+      <Header />
       <h1>Hello World !</h1>
     </>
-  )
-}
+  );
+};
 
-export default TestNext
+export default TestNext;
