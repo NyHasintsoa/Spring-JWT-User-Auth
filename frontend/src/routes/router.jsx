@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../pages/auth/login.jsx";
+import Login from "../pages/auth/Login.jsx";
 import Register from "../pages/auth/register.jsx";
 import Base from "./Base.jsx";
 import ErrorPage from "../pages/errors/error-page.jsx";
@@ -7,12 +7,14 @@ import ForgotPassword from "../pages/forgot_password/ForgotPassword.jsx";
 import UpdatePassword from "../pages/forgot_password/UpdatePassword.jsx";
 import Home from "../pages/home/Home.jsx";
 import Test from "../pages/test/Test.jsx";
-import TestNext from "../pages/test/TestNext.jsx";
 import About from "../pages/about/About.jsx";
+import DashboardLayout from "../components/dashboard/DashboardLayout.jsx";
+import ListUser from "../pages/admin/user/ListUser.jsx";
+import Profile from "../pages/profile/Profile.jsx";
+import Contact from "../pages/contact/Contact.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "",
     errorElement: <ErrorPage />,
     children: [
       {
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
           {
             path: "about",
             element: <About />
+          },
+          {
+            path: "contact",
+            element: <Contact />
           },
           {
             path: "login",
@@ -43,12 +49,26 @@ const router = createBrowserRouter([
             element: <UpdatePassword />
           },
           {
-            path: "test",
-            element: <Test />
+            path: "profile",
+            element: <Profile />
           },
           {
-            path: "test-next",
-            element: <TestNext />
+            path: "test",
+            element: <Test />
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: "admin",
+    children: [
+      {
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: "users",
+            element: <ListUser />
           }
         ]
       }

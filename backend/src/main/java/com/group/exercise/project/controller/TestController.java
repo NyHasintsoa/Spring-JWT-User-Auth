@@ -24,8 +24,7 @@ public class TestController {
                     throw new Exception("Please check your email or your password !");
             }
             return ResponseEntity.ok(
-                    new ApiResponse("This is test Message", "This is Data Test")
-            );
+                    new ApiResponse("This is test Message", "This is Data Test"));
         } catch (Exception e) {
             switch (error) {
                 case 500:

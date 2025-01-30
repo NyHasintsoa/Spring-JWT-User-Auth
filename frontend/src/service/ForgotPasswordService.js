@@ -1,4 +1,4 @@
-export const forgotPassword = (request) => {
+const forgotPassword = (request) => {
   return fetch("/api/forgot-password", {
     method: "POST",
     body: JSON.stringify(request),
@@ -9,7 +9,7 @@ export const forgotPassword = (request) => {
   });
 };
 
-export const updatePassword = (request) => {
+const updatePassword = (request) => {
   return fetch("/api/forgot-password/update-password", {
     method: "PUT",
     body: JSON.stringify(request),
@@ -17,5 +17,12 @@ export const updatePassword = (request) => {
       Accept: "application/json",
       "Content-Type": "application/json"
     }
-  })
-}
+  });
+};
+
+const checkTokenValidity = (token) => {
+  console.log(token);
+  return true;
+};
+
+export { forgotPassword, updatePassword, checkTokenValidity };

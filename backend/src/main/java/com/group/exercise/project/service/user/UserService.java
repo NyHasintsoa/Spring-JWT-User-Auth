@@ -28,6 +28,7 @@ import com.group.exercise.project.dto.UserDto;
 import com.group.exercise.project.entity.User;
 import com.group.exercise.project.repository.UserRepository;
 import com.group.exercise.project.request.AddUserRequest;
+import com.group.exercise.project.request.UpdateProfileRequest;
 import com.group.exercise.project.security.user.AuthUserDetails;
 import com.group.exercise.project.util.GenerateId;
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -39,7 +40,7 @@ public class UserService implements IUserService {
 
     @Value("${entity.id.max.length}")
     private Integer MAX_LENGTH_ID;
-    
+
     @Value("${project.mail.from}")
     private String MAIL_FROM;
 
@@ -57,7 +58,7 @@ public class UserService implements IUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private JavaMailSender mailSender;
 
@@ -69,7 +70,7 @@ public class UserService implements IUserService {
     @Override
     public User getUserById(String id) {
         return userRepository.findById(id).orElseThrow(
-            () -> new UsernameNotFoundException("User not found"));
+                () -> new UsernameNotFoundException("User not found"));
     }
 
     @Override
@@ -88,7 +89,7 @@ public class UserService implements IUserService {
         return userRepository.save(user);
     }
 
-    private void sendMailUserAdded(User user, String password){
+    private void sendMailUserAdded(User user, String password) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeHelper = new MimeMessageHelper(mimeMessage, false);
@@ -109,6 +110,15 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User updateProfileUser(String userId, UpdateProfileRequest request) {
+        User user = getUserById(userId);
+        user.setFullname(request.getFullname());
+        user.setUsername(request.getUsername());
+        user.setUpdatedAt(new Date());
+        return userRepository.save(user);
+    }
+
+    @Override
     public User uploadProfileImage(String userId, MultipartFile imageFile) {
         Date uploadedAt = new Date();
         User user = getUserById(userId);
@@ -124,12 +134,13 @@ public class UserService implements IUserService {
                         Files.delete(fileDelete.getParent());
                 }
             }
-            if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
+            if (!Files.exists(uploadPath))
+                Files.createDirectories(uploadPath);
             InputStream inputStream = imageFile.getInputStream();
             Files.copy(
-                inputStream,
-                Paths.get(pathAbsolute + storageFileName),
-                StandardCopyOption.REPLACE_EXISTING);
+                    inputStream,
+                    Paths.get(pathAbsolute + storageFileName),
+                    StandardCopyOption.REPLACE_EXISTING);
             user.setProfileImage(uploadedAt.getTime() + "/" + storageFileName);
         } catch (IOException e) {
             e.printStackTrace();
@@ -179,16 +190,16 @@ public class UserService implements IUserService {
     @Override
     public UserDto convertToDto(User user) {
         return new UserDto(
-            user.getId(),
-            user.getEmail(),
-            user.getUsername(),
-            user.getRoles(),
-            user.getFullname(),
-            user.getProfileImage(),
-            user.getEnabled(),
-            user.getAccountNonLocked(),
-            user.getCreatedAt(),
-            user.getUpdatedAt());
+                user.getId(),
+                user.getEmail(),
+                user.getUsername(),
+                user.getRoles(),
+                user.getFullname(),
+                user.getProfileImage(),
+                user.getEnabled(),
+                user.getAccountNonLocked(),
+                user.getCreatedAt(),
+                user.getUpdatedAt());
     }
 
     @Override
@@ -199,16 +210,16 @@ public class UserService implements IUserService {
     @Override
     public UserDto convertUserDetailsToDto(AuthUserDetails userDetails) {
         return new UserDto(
-            userDetails.getId(),
-            userDetails.getEmail(),
-            userDetails.getUsername(),
-            userDetails.getRoles(),
-            userDetails.getEmail(),
-            userDetails.getProfileImage(),
-            userDetails.isEnabled(),
-            userDetails.getAccountNonLocked(),
-            userDetails.getCreatedAt(),
-            userDetails.getUpdatedAt());
+                userDetails.getId(),
+                userDetails.getEmail(),
+                userDetails.getUserProfile(),
+                userDetails.getRoles(),
+                userDetails.getFullname(),
+                userDetails.getProfileImage(),
+                userDetails.isEnabled(),
+                userDetails.getAccountNonLocked(),
+                userDetails.getCreatedAt(),
+                userDetails.getUpdatedAt());
     }
 
 }

@@ -41,7 +41,9 @@ public class AuthConfig {
     private AuthUserDetailsService userService;
 
     private static final List<String> SECURED_URLS = List.of(
-            "/api/users/me");
+            "/api/users/me",
+            "/api/users/profile",
+            "/api/users/profile/upload");
 
     private static final List<String> ADMIN_URLS = List.of(
             "/api/admin/**",

@@ -23,6 +23,10 @@ public class AuthUserDetails implements UserDetails {
 
     private String email;
 
+    private String userProfile;
+
+    private String fullname;
+
     private String password;
 
     private String profileImage;
@@ -41,6 +45,8 @@ public class AuthUserDetails implements UserDetails {
         return new AuthUserDetails(
                 user.getId(),
                 user.getEmail(),
+                user.getUsername(),
+                user.getFullname(),
                 user.getPassword(),
                 user.getProfileImage(),
                 user.getRoles(),

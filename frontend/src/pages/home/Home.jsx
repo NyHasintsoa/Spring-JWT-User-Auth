@@ -1,5 +1,5 @@
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
+import Footer from "../../components/footer/Footer.jsx";
+import Header from "../../components/header/Header.jsx";
 import CardHome from "./CardHome.jsx";
 
 const titles = ["Card 1", "Card 2", "Card 3"];

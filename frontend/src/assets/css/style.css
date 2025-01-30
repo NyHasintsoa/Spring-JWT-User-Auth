@@ -1,0 +1,150 @@
+.avatar {
+    height: 3rem;
+    width: 3rem;
+    position: relative;
+    display: inline-block !important;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.avatar-group {
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.avatar-group>li {
+    position: relative;
+}
+
+.avatar-group>li:not(:last-child) {
+    margin-right: -0.8rem;
+}
+
+.avatar .avatar-name {
+    margin-left: 7px;
+}
+
+.avatar-xs {
+    height: 2.1875rem;
+    width: 2.1875rem;
+}
+
+.avatar-sm {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.avatar-lg {
+    height: 4rem;
+    width: 4rem;
+}
+
+.avatar-xl {
+    height: 5.125rem;
+    width: 5.125rem;
+}
+
+.avatar-xxl {
+    height: 5.125rem;
+    width: 5.125rem;
+}
+
+.fill-warning {
+    fill: #f7c32e !important;
+}
+
+.fill-orange {
+    fill: #fd7e14 !important;
+}
+
+
+.bg-facebook {
+    background-color: #5d82d1;
+    color: #fff;
+    border: none;
+}
+
+.bg-facebook:hover,
+.bg-facebook:active,
+.bg-facebook:focus {
+    background-color: #5475bc;
+    color: #fff;
+}
+
+.text-facebook {
+    color: #5d82d1;
+}
+
+.text-facebook:hover {
+    color: #5475bc;
+}
+
+.bg-instagram {
+    background: #c22b72;
+    color: #fff;
+    border: none;
+}
+
+.bg-instagram:hover,
+.bg-instagram:active,
+.bg-instagram:focus {
+    background-color: #af2767;
+    color: #fff;
+}
+
+.text-instagram {
+    color: #c22b72;
+}
+
+.text-instagram:hover {
+    color: #af2767;
+}
+
+.bg-twitter {
+    background-color: #40bff5;
+    color: #fff;
+    border: none;
+}
+
+.bg-twitter:hover,
+.bg-twitter:active,
+.bg-twitter:focus {
+    background-color: #3aacdd;
+    color: #fff;
+}
+
+.text-twitter {
+    color: #40bff5;
+}
+
+.text-twitter:hover {
+    color: #3aacdd;
+}
+
+.bg-linkedin {
+    background-color: #238cc8;
+    color: #fff;
+    border: none;
+}
+
+.bg-linkedin:hover,
+.bg-linkedin:active,
+.bg-linkedin:focus {
+    background-color: #207eb4;
+    color: #fff;
+}
+
+.text-linkedin {
+    color: #238cc8;
+}
+
+.text-linkedin:hover {
+    color: #207eb4;
+}

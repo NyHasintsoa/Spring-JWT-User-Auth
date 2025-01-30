@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Header from "../../components/Header.jsx";
+import Header from "../../components/header/Header.jsx";
+import Footer from "../../components/footer/Footer.jsx";
 
 const About = () => {
   const [number, setNumber] = useState(0);
@@ -12,7 +13,7 @@ const About = () => {
   return (
     <>
       <Header />
-      <div className="m-5">
+      <div className="m-5 min-vh-100">
         <button
           onClick={handleClick}
           className="btn btn-lg btn-outline-primary"
@@ -20,6 +21,7 @@ const About = () => {
           Increment Number : {number}
         </button>
       </div>
+      <Footer />
     </>
   );
 };

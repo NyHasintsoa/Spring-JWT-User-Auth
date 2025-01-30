@@ -1,11 +1,38 @@
-import {
-  FaAngleDown,
-  FaBookOpen,
-  FaChartArea,
-  FaColumns,
-  FaTable,
-  FaTachometerAlt
-} from "react-icons/fa";
+import { FaChartArea, FaTable, FaTachometerAlt, FaUsers } from "react-icons/fa";
+import SidebarLink from "./SidebarLink.jsx";
+
+const sidebarLinks = [
+  {
+    title: "Administration",
+    contents: [
+      {
+        text: "Dashboard",
+        icon: <FaTachometerAlt />,
+        linkTo: "/admin/dashboard"
+      },
+      {
+        text: "Users",
+        icon: <FaUsers />,
+        linkTo: "/admin/users"
+      }
+    ]
+  },
+  {
+    title: "Admin 1",
+    contents: [
+      {
+        text: "Charts",
+        icon: <FaChartArea />,
+        linkTo: "/chart"
+      },
+      {
+        text: "Charts",
+        icon: <FaTable />,
+        linkTo: "/table"
+      }
+    ]
+  }
+];
 
 const DashboardSidebar = () => {
   return (
@@ -18,172 +45,9 @@ const DashboardSidebar = () => {
         >
           <div className="sidebar-sidenav-menu">
             <div className="nav nav-pills">
-              <div className="sidebar-sidenav-menu-heading">Core</div>
-              <a className="nav-link active" href="index.html">
-                <div className="sidebar-nav-link-icon">
-                  <FaTachometerAlt />
-                </div>
-                Dashboard
-              </a>
-              <div className="sidebar-sidenav-menu-heading">Interface</div>
-              <a
-                className="nav-link link-body-emphasis collapsed"
-                href="#"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseLayouts"
-                aria-expanded="false"
-                aria-controls="collapseLayouts"
-              >
-                <div className="sidebar-nav-link-icon">
-                  <FaColumns />
-                </div>
-                Layouts
-                <div className="sidebar-sidenav-collapse-arrow">
-                  <FaAngleDown />
-                </div>
-              </a>
-              <div
-                className="collapse"
-                id="collapseLayouts"
-                aria-labelledby="headingOne"
-                data-bs-parent="#sidenavAccordion"
-              >
-                <nav className="sidebar-sidenav-menu-nested nav">
-                  <a
-                    className="nav-link link-body-emphasis"
-                    href="layout-static.html"
-                  >
-                    Static Navigation
-                  </a>
-                  <a
-                    className="nav-link link-body-emphasis"
-                    href="layout-sidenav-light.html"
-                  >
-                    Light Sidenav
-                  </a>
-                </nav>
-              </div>
-              <a
-                className="nav-link link-body-emphasis collapsed"
-                href="#"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapsePages"
-                aria-expanded="false"
-                aria-controls="collapsePages"
-              >
-                <div className="sidebar-nav-link-icon">
-                  <FaBookOpen />
-                </div>
-                Pages
-                <div className="sidebar-sidenav-collapse-arrow">
-                  <FaAngleDown />
-                </div>
-              </a>
-              <div
-                className="collapse"
-                id="collapsePages"
-                aria-labelledby="headingTwo"
-                data-bs-parent="#sidenavAccordion"
-              >
-                <nav
-                  className="sidebar-sidenav-menu-nested nav accordion"
-                  id="sidenavAccordionPages"
-                >
-                  <a
-                    className="nav-link link-body-emphasis collapsed"
-                    href="#"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#pagesCollapseAuth"
-                    aria-expanded="false"
-                    aria-controls="pagesCollapseAuth"
-                  >
-                    Authentication
-                    <div className="sidebar-sidenav-collapse-arrow">
-                      <FaAngleDown />
-                    </div>
-                  </a>
-                  <div
-                    className="collapse"
-                    id="pagesCollapseAuth"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordionPages"
-                  >
-                    <nav className="sidebar-sidenav-menu-nested nav">
-                      <a
-                        className="nav-link link-body-emphasis"
-                        href="login.html"
-                      >
-                        Login
-                      </a>
-                      <a
-                        className="nav-link link-body-emphasis"
-                        href="register.html"
-                      >
-                        Register
-                      </a>
-                      <a
-                        className="nav-link link-body-emphasis"
-                        href="password.html"
-                      >
-                        Forgot Password
-                      </a>
-                    </nav>
-                  </div>
-                  <a
-                    className="nav-link link-body-emphasis collapsed"
-                    href="#"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#pagesCollapseError"
-                    aria-expanded="false"
-                    aria-controls="pagesCollapseError"
-                  >
-                    Error
-                    <div className="sidebar-sidenav-collapse-arrow">
-                      <FaAngleDown />
-                    </div>
-                  </a>
-                  <div
-                    className="collapse"
-                    id="pagesCollapseError"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordionPages"
-                  >
-                    <nav className="sidebar-sidenav-menu-nested nav">
-                      <a
-                        className="nav-link link-body-emphasis"
-                        href="401.html"
-                      >
-                        401 Page
-                      </a>
-                      <a
-                        className="nav-link link-body-emphasis"
-                        href="404.html"
-                      >
-                        404 Page
-                      </a>
-                      <a
-                        className="nav-link link-body-emphasis"
-                        href="500.html"
-                      >
-                        500 Page
-                      </a>
-                    </nav>
-                  </div>
-                </nav>
-              </div>
-              <div className="sidebar-sidenav-menu-heading">Addons</div>
-              <a className="nav-link link-body-emphasis" href="charts.html">
-                <div className="sidebar-nav-link-icon">
-                  <FaChartArea />
-                </div>
-                Charts
-              </a>
-              <a className="nav-link link-body-emphasis" href="tables.html">
-                <div className="sidebar-nav-link-icon">
-                  <FaTable />
-                </div>
-                Tables
-              </a>
+              {sidebarLinks.map((sidebarLink, index) => (
+                <SidebarLink key={index} sidebarLink={sidebarLink} />
+              ))}
             </div>
           </div>
           <div className="sidebar-sidenav-footer">

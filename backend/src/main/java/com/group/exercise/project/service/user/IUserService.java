@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.group.exercise.project.dto.UserDto;
 import com.group.exercise.project.entity.User;
 import com.group.exercise.project.request.AddUserRequest;
+import com.group.exercise.project.request.UpdateProfileRequest;
 import com.group.exercise.project.security.user.AuthUserDetails;
 
 public interface IUserService {
@@ -16,6 +17,8 @@ public interface IUserService {
     User getUserById(String id);
 
     User addUser(AddUserRequest request);
+
+    User updateProfileUser(String userId, UpdateProfileRequest request);
 
     User uploadProfileImage(String userId, MultipartFile imageFile);
 

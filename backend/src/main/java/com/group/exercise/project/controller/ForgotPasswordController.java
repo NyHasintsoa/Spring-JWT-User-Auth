@@ -18,7 +18,6 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping("${api.prefix}/forgot-password")
 public class ForgotPasswordController {
@@ -45,9 +44,8 @@ public class ForgotPasswordController {
             forgotPasswordService.updatePasswordByToken(request);
             return ResponseEntity.ok(
                     new ApiResponse(
-                        "Password Updated successfully",
-                        "Your password is updated successfully"
-                    ));
+                            "Password Updated successfully",
+                            "Your password is updated successfully"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     new ApiResponse());
@@ -58,20 +56,16 @@ public class ForgotPasswordController {
     public ResponseEntity<ApiResponse> checkIfTokenValid(@RequestParam String token) {
         try {
             return ResponseEntity.ok(
-                new ApiResponse(
-                    "Check If Token Valid",
-                    forgotPasswordService.checkIfTokenValid(token)
-                )
-            );
+                    new ApiResponse(
+                            "Check If Token Valid",
+                            forgotPasswordService.checkIfTokenValid(token)));
         } catch (Exception e) {
             return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(
-                    new ApiResponse(
-                        "Check If Token Valid",
-                        false
-                    )
-                );
+                    .status(HttpStatus.OK)
+                    .body(
+                            new ApiResponse(
+                                    "Check If Token Valid",
+                                    false));
         }
     }
 

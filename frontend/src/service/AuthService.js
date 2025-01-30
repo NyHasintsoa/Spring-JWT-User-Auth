@@ -1,21 +1,40 @@
-import axios from "axios";
+import Cookies from "js-cookie";
+import { TOKEN_COOKIE } from "../config/constant.js";
 
-export const loginRequest = (request) => {
-  fetch("/api/auth/login", {
+const loginRequest = async (data) => {
+  const r = await fetch("/api/auth/login", {
     method: "POST",
-    body: JSON.stringify(request),
+    body: JSON.stringify(data),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     }
-  })
-  return []
-}
+  });
+  if (r.ok) return r.json();
+  throw new Error("Forbidden");
+};
 
-export const loginAxios = (request) => {
-  return axios.post("/api/auth/login", request, {
-    headers:{
-      'Content-type' : 'application/json'
+const getCurrentUser = () => {
+  return fetch("/api/users/me", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${Cookies.get(TOKEN_COOKIE)}`
     }
-  })
-}
+  });
+};
+
+const registerRequest = async (data) => {
+  const r = await fetch("/api/auth/signup", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+  if (r.ok) return r.json();
+  throw new Error("Forbidden");
+};
+
+export { loginRequest, getCurrentUser, registerRequest };

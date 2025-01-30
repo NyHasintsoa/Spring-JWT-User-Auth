@@ -15,6 +15,7 @@
     "chart.js": "^4.4.6",
     "framer-motion": "^11.11.10",
     "frontend": "file:",
+    "immer": "^10.1.1",
     "js-cookie": "^3.0.5",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",

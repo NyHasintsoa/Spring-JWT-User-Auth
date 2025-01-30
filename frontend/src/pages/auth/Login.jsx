@@ -2,17 +2,18 @@ import { Card, CardBody, Container } from "react-bootstrap";
 import SpringLogo from "../../assets/image/spring-logo.png";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth.js";
+import { wait } from "../../utils/Utils.js";
+import SubmitButton from "../../components/buttons/SubmitButton.jsx";
 
 const Login = () => {
   const { register, handleSubmit, formState } = useForm();
+  const { loginUser } = useAuth();
 
   const onSubmit = async (data) => {
-    try{
-      console.log(data);
-    } catch(error) {
-      console.log(error)
-    }
-  }
+    await wait(1000);
+    await loginUser(data);
+  };
 
   const { errors, isSubmitting } = formState;
 
@@ -93,26 +94,19 @@ const Login = () => {
                   Mot de passe oublié ?
                 </Link>
               </div>
-
-              <button
-                className="w-100 btn btn-lg btn-primary"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                {!isSubmitting ? (
-                  "Se Connecter"
-                ) : (
-                  <div className={"d-flex align-items-center"}>
-                    <span className={"fw-bold"}>Vérification...</span>
-                    <span
-                      className={"spinner-border ms-auto"}
-                      role={"status"}
-                      aria-hidden={true}
-                    ></span>
-                  </div>
-                )}
-              </button>
+              <SubmitButton
+                isSubmitting={isSubmitting}
+                className={"w-100 btn btn-lg btn-primary"}
+                defaultText={"Se Connecter"}
+                submitText={"Vérification..."}
+              />
             </form>
+            <div className="mt-3 text-center">
+              Vous {"n' avez"} pas encore de compte ?
+              <Link to={"/register"} className="ms-2 text-decoration-none">
+                {"S'inscrire"}
+              </Link>
+            </div>
           </CardBody>
         </Card>
       </Container>
