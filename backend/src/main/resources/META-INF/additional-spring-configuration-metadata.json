@@ -1,62 +1,69 @@
-{"properties": [
-  {
-    "name": "jwt.bearer.prefix",
-    "type": "java.lang.String",
-    "description": "A description for 'jwt.bearer.prefix'"
-  },
-  {
-    "name": "jwt.header.name",
-    "type": "java.lang.String",
-    "description": "A description for 'jwt.header.name'"
-  },
-  {
-    "name": "jwt.signing.key",
-    "type": "java.lang.String",
-    "description": "A description for 'jwt.signing.key'"
-  },
-  {
-    "name": "jwt.token.expiration",
-    "type": "java.lang.Long",
-    "description": "A description for 'jwt.token.expiration'"
-  },
-  {
-    "name": "jwt.refresh.token.expiration",
-    "type": "java.lang.Long",
-    "description": "A description for 'jwt.refresh.token.expiration'"
-  },
-  {
-    "name": "project.frontent.address",
-    "type": "java.lang.String",
-    "description": "A description for 'project.frontent.address'"
-  },
-  {
-    "name": "api.prefix",
-    "type": "java.lang.String",
-    "description": "A description for 'api.prefix'"
-  },
-  {
-    "name": "project.mail.from",
-    "type": "java.lang.String",
-    "description": "A description for 'project.mail.from'"
-  },
-  {
-    "name": "project.name.from",
-    "type": "java.lang.String",
-    "description": "A description for 'project.name.from'"
-  },
-  {
-    "name": "auth.max.attempts",
-    "type": "java.lang.Integer",
-    "description": "A description for 'auth.max.attempts'"
-  },
-  {
-    "name": "entity.id.max.length",
-    "type": "java.lang.Integer",
-    "description": "A description for 'entity.id.max.length'"
-  },
-  {
-    "name": "profile.image.upload.path",
-    "type": "java.lang.String",
-    "description": "A description for 'profile.image.upload.path'"
-  }
-]}
+{
+  "properties": [
+    {
+      "name": "jwt.bearer.prefix",
+      "type": "java.lang.String",
+      "description": "A description for 'jwt.bearer.prefix'"
+    },
+    {
+      "name": "jwt.header.name",
+      "type": "java.lang.String",
+      "description": "A description for 'jwt.header.name'"
+    },
+    {
+      "name": "jwt.signing.key",
+      "type": "java.lang.String",
+      "description": "A description for 'jwt.signing.key'"
+    },
+    {
+      "name": "jwt.token.expiration",
+      "type": "java.lang.Long",
+      "description": "A description for 'jwt.token.expiration'"
+    },
+    {
+      "name": "jwt.refresh.token.expiration",
+      "type": "java.lang.Long",
+      "description": "A description for 'jwt.refresh.token.expiration'"
+    },
+    {
+      "name": "project.frontent.address",
+      "type": "java.lang.String",
+      "description": "A description for 'project.frontent.address'"
+    },
+    {
+      "name": "api.prefix",
+      "type": "java.lang.String",
+      "description": "A description for 'api.prefix'"
+    },
+    {
+      "name": "project.mail.from",
+      "type": "java.lang.String",
+      "description": "A description for 'project.mail.from'"
+    },
+    {
+      "name": "project.name.from",
+      "type": "java.lang.String",
+      "description": "A description for 'project.name.from'"
+    },
+    {
+      "name": "auth.max.attempts",
+      "type": "java.lang.Integer",
+      "description": "A description for 'auth.max.attempts'"
+    },
+    {
+      "name": "entity.id.max.length",
+      "type": "java.lang.Integer",
+      "description": "A description for 'entity.id.max.length'"
+    },
+    {
+      "name": "profile.image.upload.path",
+      "type": "java.lang.String",
+      "description": "A description for 'profile.image.upload.path'"
+    },
+    {
+      "name": "project.adress.url",
+      "type": "java.lang.String",
+      "description": "A description for 'project.adress.url'"
+    }
+  ]
+}

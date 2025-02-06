@@ -56,7 +56,7 @@ const UserDropDown = () => {
               </div>
             </li>
             <li>
-              <hr className="dropdown-divider" />
+              <Dropdown.Divider />
             </li>
             <li>
               <Link to={"/list"} className="dropdown-item">

@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import springLogo from "../..//assets/image/spring-logo.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import { useAccountStore } from "../../store/authStore.js";
 import UserDropDown from "../userDropdown/UserDropdown.jsx";
@@ -21,6 +21,10 @@ const links = [
   {
     to: "/test",
     name: "Test"
+  },
+  {
+    to: "/admin/dashboard",
+    name: "Admin"
   }
 ];
 
@@ -37,11 +41,13 @@ const Header = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={"navbar-nav"} />
           <Navbar.Collapse id={"navbar-nav"}>
-            <Nav className={"mx-auto"}>
+            <Nav className={"mx-auto nav-pills"}>
               {links.map((link, index) => (
-                <Link to={link.to} key={index} className="nav-link">
-                  {link.name}
-                </Link>
+                <li key={index} className="nav-item">
+                  <NavLink to={link.to} className="nav-link">
+                    {link.name}
+                  </NavLink>
+                </li>
               ))}
             </Nav>
             {account ? (

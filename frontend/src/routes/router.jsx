@@ -12,6 +12,9 @@ import DashboardLayout from "../components/dashboard/DashboardLayout.jsx";
 import ListUser from "../pages/admin/user/ListUser.jsx";
 import Profile from "../pages/profile/Profile.jsx";
 import Contact from "../pages/contact/Contact.jsx";
+import Dashboard from "../pages/admin/dashboard/Dashboard.jsx";
+import UserDetail from "../pages/admin/userDetail/UserDetail.jsx";
+import AddUser from "../pages/admin/userAdd/AddUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,14 +44,6 @@ const router = createBrowserRouter([
             element: <Register />
           },
           {
-            path: "forgot-password",
-            element: <ForgotPassword />
-          },
-          {
-            path: "update-password",
-            element: <UpdatePassword />
-          },
-          {
             path: "profile",
             element: <Profile />
           },
@@ -67,12 +62,32 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         children: [
           {
+            path: "dashboard",
+            element: <Dashboard />
+          },
+          {
             path: "users",
             element: <ListUser />
+          },
+          {
+            path: "users/details/:userId",
+            element: <UserDetail />
+          },
+          {
+            path: "users/add",
+            element: <AddUser />
           }
         ]
       }
     ]
+  },
+  {
+    path: "forgot-password",
+    element: <ForgotPassword />
+  },
+  {
+    path: "update-password",
+    element: <UpdatePassword />
   }
 ]);
 

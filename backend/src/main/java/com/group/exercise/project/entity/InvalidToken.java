@@ -18,7 +18,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "invalid_tokens")
 public class InvalidToken {
-    
+
     @Id
     private String id;
 

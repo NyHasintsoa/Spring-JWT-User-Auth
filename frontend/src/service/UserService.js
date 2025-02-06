@@ -1,6 +1,32 @@
 import Cookies from "js-cookie";
 import { TOKEN_COOKIE } from "../config/constant.js";
 
+const getAllUsers = async () => {
+  const r = await fetch("/api/users", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Cookies.get(TOKEN_COOKIE)}`
+    }
+  });
+  if (r.ok) return r.json();
+  throw new Error("Error");
+};
+
+const getUserById = async (userId) => {
+  const r = await fetch(`/api/users/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Cookies.get(TOKEN_COOKIE)}`
+    }
+  });
+  if (r.ok) return r.json();
+  throw new Error("Error");
+};
+
 const updateProfileRequest = async (data) => {
   const r = await fetch("/api/users/profile", {
     method: "PUT",
@@ -28,4 +54,24 @@ const uploadProfileImageRequest = async (data) => {
   throw new Error("Error");
 };
 
-export { updateProfileRequest, uploadProfileImageRequest };
+const addUserByAdmin = async (data) => {
+  const r = await fetch("/api/users/add", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Cookies.get(TOKEN_COOKIE)}`
+    }
+  });
+  if (r.ok) return r.json();
+  throw new Error("Error");
+};
+
+export {
+  getAllUsers,
+  getUserById,
+  updateProfileRequest,
+  uploadProfileImageRequest,
+  addUserByAdmin
+};

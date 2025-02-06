@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
 const Footer = () => {
   return (
     <>
-      <footer className={"py-5 px-5 text-bg-dark"} data-bs-theme={"dark"}>
+      <footer className={"py-5 px-5 mt-5 text-bg-dark"} data-bs-theme={"dark"}>
         <div className={"row"}>
           <div className={"col-6 col-md-2 mb-3"}>
             <h5>Section</h5>

@@ -16,17 +16,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(
-        @SuppressWarnings("null") StompEndpointRegistry registry
-    ) {
+            @SuppressWarnings("null") StompEndpointRegistry registry) {
         registry
-            .addEndpoint("/gs-guide-websocket")
-            .setAllowedOrigins(FRONT_HOST);
+                .addEndpoint("/gs-guide-websocket")
+                .setAllowedOrigins(FRONT_HOST);
     }
 
     @Override
     public void configureMessageBroker(
-        @SuppressWarnings("null") MessageBrokerRegistry config
-    ) {
+            @SuppressWarnings("null") MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic");
         config.setApplicationDestinationPrefixes("/app");
     }

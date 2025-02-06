@@ -20,9 +20,14 @@ const updatePassword = (request) => {
   });
 };
 
-const checkTokenValidity = (token) => {
-  console.log(token);
-  return true;
+const checkTokenValidity = (data) => {
+  return fetch("/api/forgot-password/check-validity", {
+    method: "POST",
+    body: data,
+    headers: {
+      Accept: "application/json"
+    }
+  });
 };
 
 export { forgotPassword, updatePassword, checkTokenValidity };

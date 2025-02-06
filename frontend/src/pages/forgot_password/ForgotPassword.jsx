@@ -2,14 +2,29 @@ import { Button, Card, Container, Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import SpringLogo from "../../assets/image/spring-logo.png";
 import { forgotPassword } from "../../service/ForgotPasswordService.js";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { wait } from "../../utils/Utils.js";
 
 const ForgotPassword = () => {
+  const [sendSuccess, setsendSuccess] = useState(true);
   const { register, handleSubmit, formState } = useForm();
 
   const { errors, isSubmitSuccessful, isSubmitting } = formState;
 
   const onSubmit = async (data) => {
-    await forgotPassword(data);
+    setsendSuccess(true);
+    await wait(1000);
+    await forgotPassword(data)
+      .then((response) => {
+        if (!response.ok) {
+          toast.error("Error sending email");
+          setsendSuccess(false);
+        }
+      })
+      .catch((error) => {
+        toast.error("Error" + error.message);
+      });
   };
 
   return (
@@ -62,13 +77,13 @@ const ForgotPassword = () => {
                   </span>
                 )}
               </div>
-              {isSubmitSuccessful ? (
+              {isSubmitSuccessful && sendSuccess && (
                 <div className={"mt-3"}>
                   <div className={"text-success"}>
                     Nous avons envoyé un mail de réinitialisation
                   </div>
                 </div>
-              ) : null}
+              )}
               <Button
                 variant="primary"
                 type="submit"

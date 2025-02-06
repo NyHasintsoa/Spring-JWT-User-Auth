@@ -55,7 +55,7 @@ function DashboardLayout() {
           <DashboardSidebar />
           <div id="layoutSidenav_content">
             <main className="mt-5 pt-1">
-              <div className="container-fluid px-4">
+              <div className="container-fluid p-4">
                 <Outlet />
               </div>
             </main>

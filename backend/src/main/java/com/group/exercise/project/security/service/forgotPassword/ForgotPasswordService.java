@@ -4,19 +4,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import com.group.exercise.project.entity.User;
+import com.group.exercise.project.exception.SendMailException;
 import com.group.exercise.project.repository.UserRepository;
 import com.group.exercise.project.security.jwt.JwtUtils;
 import com.group.exercise.project.security.request.UpdatePasswordRequest;
@@ -53,28 +52,21 @@ public class ForgotPasswordService implements IForgotPasswordService {
 
     @Override
     public void sendMailReset(String email) {
-        User user = Optional.ofNullable(userRepository.findByEmail(email))
-                .orElseThrow(() -> new UsernameNotFoundException("user not found !"));
-        String token = jwtUtils.generateTokenByEmail(email);
-        prepareMailSend(user, token);
-    }
-
-    private void prepareMailSend(User user, String token) {
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
+            String token = jwtUtils.generateTokenByEmail(email);
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeHelper = new MimeMessageHelper(mimeMessage, false);
-            mimeHelper.setTo(user.getEmail());
+            mimeHelper.setTo(email);
             mimeHelper.setSubject("Reset Password Mail");
             mimeHelper.setFrom(MAIL_FROM, NAME_FROM);
             Map<String, Object> model = new HashMap<>();
             model.put("token", token);
-            model.put("email", user.getEmail());
-            model.put("username", user.getUsername());
+            model.put("email", email);
             String htmlBody = templateEngine.process("mailing/forgotPassword", new Context(Locale.FRENCH, model));
             mimeHelper.setText(htmlBody, true);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SendMailException(e.getMessage());
         }
     }
 

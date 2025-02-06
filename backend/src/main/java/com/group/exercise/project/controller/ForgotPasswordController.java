@@ -25,7 +25,7 @@ public class ForgotPasswordController {
     @Autowired
     private IForgotPasswordService forgotPasswordService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<ApiResponse> forgotPassword(@RequestBody @Valid ForgotPasswordRequest request) {
         try {
             forgotPasswordService.sendMailReset(request.getEmail());
@@ -34,7 +34,10 @@ public class ForgotPasswordController {
                             "Token Sended",
                             request));
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new ApiResponse(
+                            "Error",
+                            e.getMessage()));
         }
     }
 
