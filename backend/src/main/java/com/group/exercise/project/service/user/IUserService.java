@@ -2,6 +2,8 @@ package com.group.exercise.project.service.user;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group.exercise.project.dto.UserDto;
@@ -15,6 +17,8 @@ public interface IUserService {
     User getUserByEmail(String email);
 
     User getUserById(String id);
+
+    Page<User> getPaginatedUsers(Pageable pageable);
 
     User addUser(AddUserRequest request);
 
@@ -35,5 +39,7 @@ public interface IUserService {
     List<UserDto> convertAllToDto(List<User> users);
 
     UserDto convertUserDetailsToDto(AuthUserDetails userDetails);
+
+    User convertUserDetailsToUser(AuthUserDetails userDetails);
 
 }

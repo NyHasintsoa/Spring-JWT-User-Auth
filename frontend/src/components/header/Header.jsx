@@ -25,6 +25,10 @@ const links = [
   {
     to: "/admin/dashboard",
     name: "Admin"
+  },
+  {
+    to: "/chat",
+    name: "Chat"
   }
 ];
 

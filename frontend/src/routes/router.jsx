@@ -15,6 +15,8 @@ import Contact from "../pages/contact/Contact.jsx";
 import Dashboard from "../pages/admin/dashboard/Dashboard.jsx";
 import UserDetail from "../pages/admin/userDetail/UserDetail.jsx";
 import AddUser from "../pages/admin/userAdd/AddUser.jsx";
+import ChatLayout from "../components/chat/chatLayout/ChatLayout.jsx";
+import ChatMain from "../pages/chat/main/ChatMain.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +25,7 @@ const router = createBrowserRouter([
       {
         element: <Base />,
         children: [
-          {
-            path: "",
-            element: <Home />
-          },
+          {index: true, element: <Home />},
           {
             path: "about",
             element: <About />
@@ -78,6 +77,16 @@ const router = createBrowserRouter([
             element: <AddUser />
           }
         ]
+      }
+    ]
+  },
+  {
+    path: "chat",
+    element: <ChatLayout />,
+    children: [
+      {
+        path: "",
+        element: <ChatMain />
       }
     ]
   },

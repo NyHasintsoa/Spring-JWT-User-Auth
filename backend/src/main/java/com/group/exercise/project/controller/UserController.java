@@ -17,6 +17,9 @@ import com.group.exercise.project.service.user.IUserService;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +41,12 @@ public class UserController {
     public ResponseEntity<ApiResponse> getAllUsers() {
         try {
             return ResponseEntity.ok(
-                    new ApiResponse(
-                            "All users",
-                            userService.convertAllToDto(userService.getAllUsers())));
+                new ApiResponse(
+                    "All users",
+                    userService.convertAllToDto(userService.getAllUsers())));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    new ApiResponse("500", e.getMessage()));
+                new ApiResponse("500", e.getMessage()));
         }
     }
 
@@ -51,12 +54,12 @@ public class UserController {
     public ResponseEntity<ApiResponse> getUserById(@PathVariable String id) {
         try {
             return ResponseEntity.ok(
-                    new ApiResponse(
-                            "User By Id => " + id,
-                            userService.convertToDto(userService.getUserById(id))));
+                new ApiResponse(
+                    "User By Id => " + id,
+                    userService.convertToDto(userService.getUserById(id))));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ApiResponse("404", e.getMessage()));
+                new ApiResponse("404", e.getMessage()));
         }
     }
 
@@ -64,13 +67,13 @@ public class UserController {
     public ResponseEntity<ApiResponse> addUser(@RequestBody @Valid AddUserRequest request) {
         try {
             return ResponseEntity.ok(
-                    new ApiResponse(
-                            "User Added successfully",
-                            userService.convertToDto(
-                                    userService.addUser(request))));
+                new ApiResponse(
+                    "User Added successfully",
+                    userService.convertToDto(
+                        userService.addUser(request))));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    new ApiResponse("500", e.getMessage()));
+                new ApiResponse("500", e.getMessage()));
         }
     }
 
@@ -78,17 +81,17 @@ public class UserController {
     public ResponseEntity<ApiResponse> updateProfileUser(@RequestBody @Valid UpdateProfileRequest request) {
         try {
             AuthUserDetails userConnected = (AuthUserDetails) SecurityContextHolder
-                    .getContext()
-                    .getAuthentication()
-                    .getPrincipal();
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
             User updatedUser = userService.updateProfileUser(userConnected.getId(), request);
             return ResponseEntity.ok(
-                    new ApiResponse(
-                            "User Connected",
-                            userService.convertToDto(updatedUser)));
+                new ApiResponse(
+                    "User Connected",
+                    userService.convertToDto(updatedUser)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    new ApiResponse());
+                new ApiResponse());
         }
     }
 
@@ -96,22 +99,22 @@ public class UserController {
     public ResponseEntity<ApiResponse> uploadProfileImage(@RequestParam MultipartFile profileFile) {
         try {
             AuthUserDetails userConnected = (AuthUserDetails) SecurityContextHolder
-                    .getContext()
-                    .getAuthentication()
-                    .getPrincipal();
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
             UserDto userDto = userService.convertToDto(
                     userService.uploadProfileImage(userConnected.getId(), profileFile));
             return ResponseEntity.ok(
-                    new ApiResponse(
-                            "Profile Image upload => ",
-                            userDto));
+                new ApiResponse(
+                    "Profile Image upload => ",
+                    userDto));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(
-                            new ApiResponse(
-                                    "INTERNAL_SERVER_ERROR",
-                                    e.getMessage()));
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(
+                    new ApiResponse(
+                        "INTERNAL_SERVER_ERROR",
+                        e.getMessage()));
         }
     }
 
@@ -119,17 +122,38 @@ public class UserController {
     public ResponseEntity<ApiResponse> showConnecteduser() {
         try {
             AuthUserDetails userConnected = (AuthUserDetails) SecurityContextHolder
-                    .getContext()
-                    .getAuthentication()
-                    .getPrincipal();
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
             return ResponseEntity.ok(
                     new ApiResponse("User'Informations",
-                            userService.convertUserDetailsToDto(userConnected)));
+                        userService.convertUserDetailsToDto(userConnected)));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(
-                            new ApiResponse("500", "INTERNAL_SERVER_ERROR"));
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(
+                    new ApiResponse("500", "INTERNAL_SERVER_ERROR"));
+        }
+    }
+
+    @GetMapping("/paginate")
+    public ResponseEntity<ApiResponse> getPaginatedUsers(
+        @PageableDefault(page = 0, size = 10, sort = "username", direction = Direction.ASC) Pageable pageable
+    ) {
+        try {
+            return ResponseEntity.ok(
+                new ApiResponse(
+                    "get paged Users",
+                    userService.getPaginatedUsers(pageable)
+                )
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ApiResponse(
+                    "INTERNAL_SERVER_ERROR",
+                    e.getMessage()
+                )
+            );
         }
     }
 

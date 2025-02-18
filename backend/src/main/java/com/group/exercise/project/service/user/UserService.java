@@ -15,6 +15,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -71,6 +73,11 @@ public class UserService implements IUserService {
     public User getUserById(String id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Override
+    public Page<User> getPaginatedUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override
@@ -220,6 +227,23 @@ public class UserService implements IUserService {
                 userDetails.getAccountNonLocked(),
                 userDetails.getCreatedAt(),
                 userDetails.getUpdatedAt());
+    }
+
+    @Override
+    public User convertUserDetailsToUser(AuthUserDetails userDetails) {
+        return new User(
+            userDetails.getId(),
+            userDetails.getUsername(),
+            userDetails.getEmail(),
+            userDetails.getPassword(),
+            userDetails.getRoles(),
+            userDetails.getFullname(),
+            userDetails.getProfileImage(),
+            userDetails.getCreatedAt(),
+            userDetails.getUpdatedAt(),
+            userDetails.getEnabled(),
+            userDetails.getAccountNonLocked()
+        );
     }
 
 }
