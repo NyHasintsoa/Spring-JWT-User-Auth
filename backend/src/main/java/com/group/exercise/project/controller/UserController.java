@@ -137,14 +137,14 @@ public class UserController {
     }
 
     @GetMapping("/paginate")
-    public ResponseEntity<ApiResponse> getPaginatedUsers(
+    public ResponseEntity<ApiResponse> getAllPagedUsers(
         @PageableDefault(page = 0, size = 10, sort = "username", direction = Direction.ASC) Pageable pageable
     ) {
         try {
             return ResponseEntity.ok(
                 new ApiResponse(
-                    "get paged Users",
-                    userService.getPaginatedUsers(pageable)
+                    "get All paged Users",
+                    userService.getPagedUsersDto(pageable)
                 )
             );
         } catch (Exception e) {

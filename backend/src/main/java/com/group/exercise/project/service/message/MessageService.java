@@ -13,6 +13,12 @@ import com.group.exercise.project.request.WriteMessageRequest;
 import com.group.exercise.project.service.user.UserService;
 import com.group.exercise.project.util.GenerateId;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Root;
+
 @Service
 public class MessageService implements IMessageService {
 
@@ -25,9 +31,31 @@ public class MessageService implements IMessageService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EntityManager entityManager;
+
     @Override
     public List<Message> getConversationsFromToId(String fromId, String toId) {
-        return messageRepository.findAllByFromIdIdAndToIdId(fromId, toId);
+        CriteriaBuilder cBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Message> query = cBuilder.createQuery(Message.class);
+        Root<Message> message = query.from(Message.class);
+        Join<Message, User> fromUser = message.join("fromId");
+        Join<Message, User> toUser = message.join("toId");
+        query.select(message)
+            .where(
+                cBuilder.or(
+                    cBuilder.and(
+                        cBuilder.equal(fromUser.get("id"), fromId),
+                        cBuilder.equal(toUser.get("id"), toId)
+                    ),
+                    cBuilder.and(
+                        cBuilder.equal(fromUser.get("id"), toId),
+                        cBuilder.equal(toUser.get("id"), fromId)
+                    )
+                )
+            );
+        query.orderBy(cBuilder.asc(message.get("createdAt")));
+        return entityManager.createQuery(query).getResultList();
     }
 
     @Override

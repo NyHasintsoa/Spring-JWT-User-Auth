@@ -4,7 +4,7 @@ import "../../../assets/css/chat.css";
 import ChatSidebar from "../chatSidebar/ChatSidebar.jsx";
 import { Container } from "react-bootstrap";
 import ChatHeader from "../chatHeader/ChatHeader.jsx";
-import ChatFooter from "../chatFooter/ChatFooter.jsx";
+// import ChatFooter from "../chatFooter/ChatFooter.jsx";
 
 function ChatLayout() {
   return (
@@ -14,12 +14,12 @@ function ChatLayout() {
     >
       <ChatNav />
       <ChatSidebar />
-      <main className="chat-message">
+      <main className="chat-message" style={{width: "66%"}}>
         <Container className="h-100">
           <div className="d-flex flex-column h-100 position-relative">
             <ChatHeader />
             <Outlet />
-            <ChatFooter />
+            {/* <ChatFooter /> */}
           </div>
         </Container>
       </main>

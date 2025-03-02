@@ -18,15 +18,16 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(
             @SuppressWarnings("null") StompEndpointRegistry registry) {
         registry
-                .addEndpoint("/gs-guide-websocket")
-                .setAllowedOrigins(FRONT_HOST);
+            .addEndpoint("/chat-socket")
+            .setAllowedOrigins(FRONT_HOST);
     }
 
     @Override
     public void configureMessageBroker(
             @SuppressWarnings("null") MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
         config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/chat-room", "/topic", "/queue");
+        config.setUserDestinationPrefix("/user");
     }
 
 }

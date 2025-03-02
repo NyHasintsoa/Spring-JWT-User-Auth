@@ -1,8 +1,9 @@
-function ChatFooter() {
+/* eslint-disable react/prop-types */
+function ChatFooter({ onSubmit, register, errors, isSubmitting }) {
   return (
     <>
       <div className="pb-3 position-absolute bottom-0 start-0">
-        <form className="rounded-pill bg-secondary">
+        <form onSubmit={onSubmit} className="rounded-pill bg-secondary position-relative">
           <div className="row align-items-center gx-0">
             <div className="col-auto">
               <a
@@ -30,7 +31,13 @@ function ChatFooter() {
             <div className="col">
               <div className="input-group">
                 <textarea
-                  className="form-control px-3"
+                  {...register("content", {
+                    required: "Veuillez entrer le message, s'il vous plaît !",
+                  })}
+                  className={
+                    "form-control px-3 " +
+                    (errors.content !== undefined ? "is-invalid" : "")
+                  }
                   placeholder="Type your message..."
                   rows={1}
                   style={{
@@ -41,11 +48,16 @@ function ChatFooter() {
                     height: "45px"
                   }}
                 ></textarea>
+                {errors.content && (
+                  <div className="invalid-feedback">
+                    {errors.content.message}
+                  </div>
+                )}
               </div>
             </div>
 
             <div className="col-auto">
-              <button className="btn btn-primary rounded-circle">
+              <button type="submit" disabled={isSubmitting} className="btn btn-primary rounded-circle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

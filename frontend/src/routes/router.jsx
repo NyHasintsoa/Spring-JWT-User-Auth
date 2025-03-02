@@ -17,6 +17,8 @@ import UserDetail from "../pages/admin/userDetail/UserDetail.jsx";
 import AddUser from "../pages/admin/userAdd/AddUser.jsx";
 import ChatLayout from "../components/chat/chatLayout/ChatLayout.jsx";
 import ChatMain from "../pages/chat/main/ChatMain.jsx";
+import PublicSocket from "../pages/test/webSocket/PublicSocket.jsx";
+import PrivateSocket from "../pages/test/webSocket/PrivateSocket.jsx";
 
 const router = createBrowserRouter([
   {
@@ -87,7 +89,11 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <ChatMain />
-      }
+      },
+      {
+        path: ":userId",
+        element: <ChatMain />
+      },
     ]
   },
   {
@@ -97,6 +103,14 @@ const router = createBrowserRouter([
   {
     path: "update-password",
     element: <UpdatePassword />
+  },
+  {
+    path: "public-socket",
+    element: <PublicSocket />
+  },
+  {
+    path: "private-socket",
+    element: <PrivateSocket />
   }
 ]);
 

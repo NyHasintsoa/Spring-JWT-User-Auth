@@ -2,7 +2,7 @@ import { Button, Card, Container, Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import SpringLogo from "../../assets/image/spring-logo.png";
 import { forgotPassword } from "../../service/ForgotPasswordService.js";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { wait } from "../../utils/Utils.js";
 
@@ -29,6 +29,7 @@ const ForgotPassword = () => {
 
   return (
     <>
+      <Toaster position={"top-right"} reverseOrder={false} gutter={10} />
       <Container
         className="d-flex align-items-center justify-content-center col-md-7 col-lg-5 col-sm-8"
         style={{ minHeight: "100vh" }}

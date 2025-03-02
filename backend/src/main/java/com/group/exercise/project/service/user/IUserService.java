@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group.exercise.project.dto.UserDto;
@@ -19,6 +20,12 @@ public interface IUserService {
     User getUserById(String id);
 
     Page<User> getPaginatedUsers(Pageable pageable);
+
+    PagedModel<User> getPagedUsers(Pageable pageable);
+
+    Page<UserDto> convertPaginatedUsersToUsersDto(Page<User> userPaged);
+
+    PagedModel<UserDto> getPagedUsersDto(Pageable pageable);
 
     User addUser(AddUserRequest request);
 

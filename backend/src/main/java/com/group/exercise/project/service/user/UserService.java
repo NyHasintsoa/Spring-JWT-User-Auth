@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -78,6 +79,34 @@ public class UserService implements IUserService {
     @Override
     public Page<User> getPaginatedUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public PagedModel<User> getPagedUsers(Pageable pageable) {
+        return new PagedModel<User>(userRepository.findAll(pageable));
+    }
+
+    @Override
+    public Page<UserDto> convertPaginatedUsersToUsersDto(Page<User> userPaged) {
+        return userPaged.map((user) -> new UserDto(
+            user.getId(),
+            user.getEmail(),
+            user.getUsername(),
+            user.getRoles(),
+            user.getFullname(),
+            user.getProfileImage(),
+            user.getEnabled(),
+            user.getAccountNonLocked(),
+            user.getCreatedAt(),
+            user.getUpdatedAt()
+        ));
+    }
+
+    @Override
+    public PagedModel<UserDto> getPagedUsersDto(Pageable pageable) {
+        return new PagedModel<UserDto>(
+            convertPaginatedUsersToUsersDto(getPaginatedUsers(pageable))
+        );
     }
 
     @Override

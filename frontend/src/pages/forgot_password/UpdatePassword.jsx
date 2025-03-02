@@ -8,6 +8,7 @@ import {
 } from "../../service/ForgotPasswordService.js";
 import { useCallback, useEffect, useState } from "react";
 import { wait } from "../../utils/Utils.js";
+import { Toaster } from "react-hot-toast";
 
 const UpdatePassword = () => {
   const [loading, setLoading] = useState(true);
@@ -59,6 +60,7 @@ const UpdatePassword = () => {
 
   return (
     <>
+      <Toaster position={"top-right"} reverseOrder={false} gutter={10} />
       <Container
         className="d-flex align-items-center justify-content-center col-md-7 col-lg-5 col-sm-8"
         style={{ minHeight: "100vh" }}

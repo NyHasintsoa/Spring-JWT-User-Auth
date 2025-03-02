@@ -11,6 +11,7 @@ import {
 import defaultProfile from "../../../../assets/profile/default_profile.svg";
 import AvatarUser from "../../../avatar/AvatarUser.jsx";
 import { PROFILE_IMAGE_PATH } from "../../../../config/constant.js";
+import { Link } from "react-router-dom"
 
 function FriendCard({ friend }) {
   return (
@@ -30,10 +31,10 @@ function FriendCard({ friend }) {
             </div>
 
             <div className="col">
-              <h5>
-                <span>{friend.username}</span>
-              </h5>
-              <p>last seen within a month</p>
+              <Link to={"/chat/"+friend.id} className="fs-5 text-decoration-none text-dark">
+                {friend.username}
+              </Link>
+              <p>{friend.email}</p>
             </div>
 
             <div className="col-auto">
