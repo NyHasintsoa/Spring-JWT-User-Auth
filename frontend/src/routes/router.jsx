@@ -19,6 +19,7 @@ import ChatLayout from "../components/chat/chatLayout/ChatLayout.jsx";
 import ChatMain from "../pages/chat/main/ChatMain.jsx";
 import PublicSocket from "../pages/test/webSocket/PublicSocket.jsx";
 import PrivateSocket from "../pages/test/webSocket/PrivateSocket.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -84,7 +85,7 @@ const router = createBrowserRouter([
   },
   {
     path: "chat",
-    element: <ChatLayout />,
+    element: <PrivateRoute><ChatLayout /></PrivateRoute>,
     children: [
       {
         path: "",
