@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getConversationsFor, writeMessage } from "../../../service/MessageService.js";
+import { getConversationsFor } from "../../../service/MessageService.js";
 import ChatMessage from "../../../components/chat/chatMessage/ChatMessage.jsx";
 import { useAuth } from "../../../hooks/useAuth.js";
 import ChatFooter from "../../../components/chat/chatFooter/ChatFooter.jsx";
@@ -14,27 +14,36 @@ function ChatMain() {
   const [stompClient, setStompClient] = useState(null)
   const { register, handleSubmit, formState, setValue } = useForm()
   const bottomMessage = useRef(null)
+  setValue("fromId", account.id)
 
-  const onSubmit = (messageWritted) => {
+  useEffect(() => {
+    connectToChat()
+  }, [])
+
+  const onSubmit = async (messageWritted) => {
+    console.log(
+    "\n###########################################\n",
+    messageWritted,
+    "\n###########################################\n"
+    )
     if (stompClient && userId) {
       stompClient.publish({
-        destination: `/app/send/${userId}`,
+        destination: `/app/message/send/${userId}`,
         body: JSON.stringify(messageWritted)
       })
-      // const { data } = await writeMessage(messageWritted, userId)
-      // setMessages(listMessages => [...listMessages, data])
+      setMessages(listMessages => [...listMessages, messageWritted])
       setValue("content", "")
     }
   }
 
   const onMessageReceived = (payload) => {
-    var payloadData = JSON.parse(payload.body);
+    let { body } = JSON.parse(payload.body);
     console.log(
-      "###################################################\n",
-      "onMessageReceived => payloadData",
-      payloadData,
-      "\n###################################################\n"
+    "\n###########################################\n",
+    body,
+    "\n###########################################\n"
     )
+    setMessages(listMessages => [...listMessages, body.data])
   }
 
   const { errors, isSubmitting } = formState
@@ -46,12 +55,11 @@ function ChatMain() {
     }
   }, [userId])
 
-  const connectToChat = useCallback((idUser) => {
+  const connectToChat = useCallback(() => {
     const client = new Client({
       brokerURL: "ws://127.0.0.1:8080/chat-socket",
       onConnect: () => {
-        console.log(`/user/${idUser}/queue/messages`)
-        client.subscribe(`/user/${idUser}/queue/messages`, onMessageReceived);
+        client.subscribe(`/messaging/users/${account.id}`, onMessageReceived);
       },
       onWebSocketError: (error) => {
         console.error("Error with websocket", error);
@@ -79,7 +87,6 @@ function ChatMain() {
   useEffect(() => {
     if (userId !== undefined) {
       getMessages(userId)
-      connectToChat(userId)
     }
   }, [userId])
 

@@ -10,15 +10,12 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.exercise.project.request.WriteMessageRequest;
 import com.group.exercise.project.response.ApiResponse;
 import com.group.exercise.project.security.user.AuthUserDetails;
 import com.group.exercise.project.service.message.IMessageService;
-import com.group.exercise.project.service.user.IUserService;
 
 import jakarta.validation.Valid;
 
@@ -27,9 +24,6 @@ public class MessageController {
 
     @Autowired
     private IMessageService messageService;
-
-    @Autowired
-    private IUserService userService;
 
     @GetMapping("${api.prefix}/messages/{userId}")
     public ResponseEntity<ApiResponse> getMessageFromTo(@PathVariable String userId) {
@@ -54,41 +48,37 @@ public class MessageController {
         }
     }
 
-    @PostMapping("${api.prefix}/messages/{userId}")
-    public ResponseEntity<ApiResponse> writeMessage(
-        @PathVariable String userId,
-        @RequestBody @Valid WriteMessageRequest request
+    @MessageMapping("/message/send/{userId}")
+    @SendTo("/messaging/users/{userId}")
+    public ResponseEntity<ApiResponse> sendMessageToUser(
+        @DestinationVariable String userId,
+        WriteMessageRequest message
     ) {
         try {
-            AuthUserDetails userConnected = (AuthUserDetails) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
             return ResponseEntity.ok(
                 new ApiResponse(
-                    "Message Writen successfully",
+                    "Message From the sender",
                     messageService.writeMessageFromIdToId(
-                        userService.convertUserDetailsToUser(userConnected),
                         userId,
-                        request
+                        message
                     )
                 )
             );
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    e.getMessage()
-                )
+            System.out.println(
+                "\n##############################################\n"+
+                e.getMessage()+
+                "\n##############################################\n"
             );
         }
+        return null;
     }
 
     @MessageMapping("/send/{userId}")
     @SendTo("/chat-room/{userId}")
     public ResponseEntity<ApiResponse> sendMessage(
         @DestinationVariable String userId,
-        WriteMessageRequest message
+        @Valid WriteMessageRequest message
     ) {
         try {
             return ResponseEntity.ok(

@@ -89,34 +89,32 @@ public class UserService implements IUserService {
     @Override
     public Page<UserDto> convertPaginatedUsersToUsersDto(Page<User> userPaged) {
         return userPaged.map((user) -> new UserDto(
-            user.getId(),
-            user.getEmail(),
-            user.getUsername(),
-            user.getRoles(),
-            user.getFullname(),
-            user.getProfileImage(),
-            user.getEnabled(),
-            user.getAccountNonLocked(),
-            user.getCreatedAt(),
-            user.getUpdatedAt()
-        ));
+                user.getId(),
+                user.getEmail(),
+                user.getUsername(),
+                user.getRoles(),
+                user.getFullname(),
+                user.getProfileImage(),
+                user.getEnabled(),
+                user.getAccountNonLocked(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()));
     }
 
     @Override
     public PagedModel<UserDto> getPagedUsersDto(Pageable pageable) {
         return new PagedModel<UserDto>(
-            convertPaginatedUsersToUsersDto(getPaginatedUsers(pageable))
-        );
+                convertPaginatedUsersToUsersDto(getPaginatedUsers(pageable)));
     }
 
     @Override
     public User addUser(AddUserRequest request) {
         User user = new User();
-        user.setId(GenerateId.generateConstanteLengthId(request.getEmail(), MAX_LENGTH_ID));
+        user.setId(GenerateId.generateConstanteLengthId(request.getEmail()));
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
         user.setRoles(request.getRoles());
-        String password = GenerateId.generateConstanteLengthId(request.getFullname(), 10);
+        String password = GenerateId.generateConstanteLengthId(request.getFullname());
         user.setPassword(passwordEncoder.encode(password));
         user.setFullname(request.getFullname());
         user.setAccountNonLocked(true);
@@ -261,18 +259,17 @@ public class UserService implements IUserService {
     @Override
     public User convertUserDetailsToUser(AuthUserDetails userDetails) {
         return new User(
-            userDetails.getId(),
-            userDetails.getUsername(),
-            userDetails.getEmail(),
-            userDetails.getPassword(),
-            userDetails.getRoles(),
-            userDetails.getFullname(),
-            userDetails.getProfileImage(),
-            userDetails.getCreatedAt(),
-            userDetails.getUpdatedAt(),
-            userDetails.getEnabled(),
-            userDetails.getAccountNonLocked()
-        );
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                userDetails.getPassword(),
+                userDetails.getRoles(),
+                userDetails.getFullname(),
+                userDetails.getProfileImage(),
+                userDetails.getCreatedAt(),
+                userDetails.getUpdatedAt(),
+                userDetails.getEnabled(),
+                userDetails.getAccountNonLocked());
     }
 
 }

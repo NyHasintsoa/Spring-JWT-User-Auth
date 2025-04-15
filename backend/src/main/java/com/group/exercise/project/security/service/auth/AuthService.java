@@ -53,7 +53,7 @@ public class AuthService implements IAuthService {
     @Override
     public JwtResponse signUp(RegisterRequest request) {
         User newUser = new User();
-        newUser.setId(GenerateId.generateConstanteLengthId(request.getEmail(), MAX_LENGTH_ID));
+        newUser.setId(GenerateId.generateConstanteLengthId(request.getEmail()));
         newUser.setEmail(request.getEmail());
         newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         newUser.setUsername(request.getUsername());

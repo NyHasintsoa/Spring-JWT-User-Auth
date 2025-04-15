@@ -42,29 +42,26 @@ public class MessageService implements IMessageService {
         Join<Message, User> fromUser = message.join("fromId");
         Join<Message, User> toUser = message.join("toId");
         query.select(message)
-            .where(
-                cBuilder.or(
-                    cBuilder.and(
-                        cBuilder.equal(fromUser.get("id"), fromId),
-                        cBuilder.equal(toUser.get("id"), toId)
-                    ),
-                    cBuilder.and(
-                        cBuilder.equal(fromUser.get("id"), toId),
-                        cBuilder.equal(toUser.get("id"), fromId)
-                    )
-                )
-            );
+                .where(
+                        cBuilder.or(
+                                cBuilder.and(
+                                        cBuilder.equal(fromUser.get("id"), fromId),
+                                        cBuilder.equal(toUser.get("id"), toId)),
+                                cBuilder.and(
+                                        cBuilder.equal(fromUser.get("id"), toId),
+                                        cBuilder.equal(toUser.get("id"), fromId))));
         query.orderBy(cBuilder.asc(message.get("createdAt")));
         return entityManager.createQuery(query).getResultList();
     }
 
     @Override
-    public Message writeMessageFromIdToId(User fromId, String toId, WriteMessageRequest request) {
+    public Message writeMessageFromIdToId(String toId, WriteMessageRequest request) {
         User toUser = userService.getUserById(toId);
+        User fromUser = userService.getUserById(request.getFromId());
         Message message = new Message();
-        message.setId(GenerateId.generateConstanteLengthId(request.getContent(), MAX_LENGTH_ID));
+        message.setId(GenerateId.generateConstanteLengthId(request.getContent()));
         message.setContent(request.getContent());
-        message.setFromId(fromId);
+        message.setFromId(fromUser);
         message.setToId(toUser);
         return messageRepository.save(message);
     }

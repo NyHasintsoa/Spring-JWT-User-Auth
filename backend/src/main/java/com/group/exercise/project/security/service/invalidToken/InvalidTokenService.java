@@ -31,8 +31,7 @@ public class InvalidTokenService implements IInvalidTokenService {
     @Scheduled(fixedRate = 3600000)
     public void deleteAllExpiredTokens() {
         List<String> invalidTokenId = invalidTokenRepository.findByExpirationDateBefore(new Date()).stream().map(
-            (item) -> item.getId()
-        ).toList();
+                (item) -> item.getId()).toList();
         invalidTokenRepository.deleteAllById(invalidTokenId);
     }
 
@@ -44,12 +43,10 @@ public class InvalidTokenService implements IInvalidTokenService {
     @Override
     public InvalidToken makeTokenInvalid(String token) {
         return invalidTokenRepository.save(
-            new InvalidToken(
-                GenerateId.generateConstanteLengthId(token, MAX_LENGTH),
-                token,
-                new Date(new Date().getTime() + TOKEN_EXPIRATION)
-            )
-        );
+                new InvalidToken(
+                        GenerateId.generateConstanteLengthId(token),
+                        token,
+                        new Date(new Date().getTime() + TOKEN_EXPIRATION)));
     }
 
     @Override

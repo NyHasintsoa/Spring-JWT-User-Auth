@@ -15,4 +15,7 @@ public class WriteMessageRequest {
     @NotBlank
     private String content;
 
+    @NotBlank
+    private String fromId;
+
 }

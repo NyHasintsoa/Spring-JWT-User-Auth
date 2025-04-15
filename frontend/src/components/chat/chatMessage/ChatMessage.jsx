@@ -6,7 +6,12 @@ import moment from "moment";
 //import { PROFILE_IMAGE_PATH } from "../../../config/constant.js";
 
 function ChatMessage({ message, accountId }) {
-  const isMe = () => accountId != message.fromId.id
+  const isMe = () => {
+    if (message.fromId.id !== undefined)
+      return accountId != message.fromId.id
+    else
+      return accountId != message.fromId
+  }
 
   const ago = useCallback(() => {
     return moment(message.createdAt).fromNow()
